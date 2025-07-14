@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Binary Brains - Smart Shopping</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #ffffff;
+    }
+
+    nav {
+      background-color: rgba(0, 0, 0, 0.6);
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 10px 20px;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav ul {
+      display: flex;
+      justify-content: center;
+      list-style: none;
+      gap: 30px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #00ffcc;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: #ffffff;
+    }
+
+    .nav-center {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+    }
+
+    .nav-right {
+      display: flex;
+      gap: 20px;
+    }
+
+    .nav-right a {
+      font-size: 16px;
+      color: #00ffcc;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .section {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 80px 20px 50px;
+      text-align: center;
+    }
+
+    h1, h2 {
+      margin-bottom: 20px;
+    }
+
+    .highlight {
+      color: #00ffcc;
+    }
+
+    .product-grid {
+      display: flex;
+      gap: 20px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .product-card {
+      background: #ffffff10;
+      padding: 20px;
+      border-radius: 12px;
+      width: 160px;
+      text-align: center;
+      transition: 0.3s ease;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .product-card:hover {
+      background: #ffffff20;
+      transform: scale(1.05);
+      cursor: pointer;
+    }
+
+    .assistant-container {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      align-items: center;
+      margin-top: 40px;
+    }
+
+    .chat-ui {
+      background: #ffffff10;
+      border-radius: 12px;
+      padding: 20px;
+      width: 300px;
+      text-align: left;
+    }
+
+    .chat-bubble {
+      background: #ffffff20;
+      border-radius: 20px;
+      padding: 10px 15px;
+      margin-bottom: 10px;
+      max-width: 100%;
+    }
+
+    .chat-bubble.user {
+      background: #00ffcc30;
+      align-self: flex-end;
+    }
+
+    .chat-bubble.bot {
+      background: #ffffff30;
+    }
+
+    .qr-mockup {
+      text-align: center;
+    }
+
+    .qr-mockup img {
+      width: 120px;
+      height: 120px;
+      border: 4px solid #00ffcc;
+      border-radius: 12px;
+    }
+
+    .chat-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      font-size: 28px;
+      background: #00ffcc;
+      color: #000;
+      padding: 12px 15px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .chat-window {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      width: 260px;
+      background: #ffffff10;
+      border-radius: 12px;
+      padding: 15px;
+      display: none;
+    }
+
+    #toggle-chat:checked + .chat-button + .chat-window {
+      display: block;
+    }
+
+    .chat-header {
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #00ffcc;
+    }
+
+    .chat-content .chat-msg {
+      background: #ffffff20;
+      padding: 10px;
+      border-radius: 12px;
+      margin-bottom: 10px;
+    }
+
+    .chat-content .user {
+      background: #00ffcc30;
+    }
+
+    .shop-btn {
+      display: inline-block;
+      margin: 20px 10px 0;
+      padding: 12px 24px;
+      background-color: #00ffcc;
+      color: #000;
+      font-weight: 600;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+
+    .shop-btn:hover {
+      background-color: #00ddaa;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 50px;
+      font-size: 14px;
+      color: #ccc;
+    }
+
+    footer a {
+      color: #00ffcc;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      .nav-right {
+        gap: 10px;
+      }
+      nav ul {
+        gap: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-center">
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#stock">Stock Updates</a></li>
+        <li><a href="#assistant">AI Assistant</a></li>
+        <li><a href="#impact">Impact</a></li>
+      </ul>
+    </div>
+     <div class="nav-left">
+      <a href="#wallet">💰 Wallet</a>
+      <a href="#profile">👤 Profile</a>
+    </div>
+  </nav>
+
+  <!-- Sections -->
+  <section id="home" class="section">
+    <h1>We are <span class="highlight">Quick Fetch</span></h1>
+    <p>Reimagining the in-store experience with smart tech.</p>
+  </section>
+
+  <section id="stock" class="section">
+    <h2>✔ Real-time Stock Updates</h2>
+    <p>Live product availability helps customers shop confidently.</p>
+
+    <div class="product-grid">
+      <a href="https://www.walmart.com/search?q=organic+cereal" target="_blank" class="product-card">
+        <h4>Organic Cereal</h4>
+        <p>In Stock</p>
+      </a>
+      <a href="https://www.walmart.com/search?q=almond+milk" target="_blank" class="product-card">
+        <h4>Almond Milk</h4>
+        <p>Out of Stock</p>
+      </a>
+      <a href="https://www.walmart.com/search?q=laptop" target="_blank" class="product-card">
+        <h4>Laptop</h4>
+        <p>In Stock</p>
+      </a>
+      <a href="https://www.walmart.com/search?q=wireless+mouse" target="_blank" class="product-card">
+        <h4>Wireless Mouse</h4>
+        <p>In Stock</p>
+      </a>
+      <a href="https://www.walmart.com/search?q=headphones" target="_blank" class="product-card">
+        <h4>Headphones</h4>
+        <p>Out of Stock</p>
+      </a>
+    </div>
+
+    <a href="https://www.walmart.com/" target="_blank" class="shop-btn">🛒 Shop Online</a>
+    <a href="https://www.walmart.com/store-finder?location=95829" target="_blank" class="shop-btn">🏪 Shop at Offline Store</a>
+  </section>
+
+  <section id="assistant" class="section">
+    <h2>✔ QR-Code Powered AI Assistant</h2>
+    <p>Scan a product QR to get instant answers before buying.</p>
+
+    <div class="assistant-container">
+      <div class="qr-mockup">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://example.com/mouse&size=120x120" alt="QR Code">
+        <p>Scan for Wireless Mouse Info</p>
+      </div>
+      <div class="chat-ui">
+        <div class="chat-bubble user">Does this mouse work with Mac?</div>
+        <div class="chat-bubble bot">Yes! It's compatible with Windows, Mac, and Linux.</div>
+        <div class="chat-bubble user">How long does the battery last?</div>
+        <div class="chat-bubble bot">It lasts up to 6 months on a single charge.</div>
+        <div class="chat-bubble user">Any customer reviews?</div>
+        <div class="chat-bubble bot">Rated 4.6 stars – Customers love the ergonomic design and battery life!</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Chatbot Toggle -->
+  <input type="checkbox" id="toggle-chat" hidden>
+  <label for="toggle-chat" class="chat-button">💬</label>
+  <div class="chat-window">
+    <div class="chat-header">Smart Assistant</div>
+    <div class="chat-content">
+      <div class="chat-msg bot">Hi there! How can I help you today?</div>
+      <div class="chat-msg user">Where can I find wireless headphones?</div>
+      <div class="chat-msg bot">Check aisle 4 or use the QR code on the shelf for more info!</div>
+    </div>
+  </div>
+
+  <section id="impact" class="section">
+    <h2>Smarter Shopping</h2>
+    <p>We make shopping faster, easier, and smarter for everyone.</p>
+  </section>
+
+  <footer>
+    <p>Powered by <a href="#">Quick Fetch</a> | &copy; 2025 Binary Brains</p>
+  </footer>
+
+</body>
+</html>
